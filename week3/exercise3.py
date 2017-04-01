@@ -4,9 +4,48 @@ Steps on the way to making your own guessing game.
 """
 from __future__ import division
 from __future__ import print_function
-from exercise1 import not_number_rejector
-from exercise1 import super_asker
 import random
+
+
+def number_tester(low, high):
+    """Robust testing function.
+
+    Check input values for suitability
+    """
+    a = False
+    while not a:
+        guessedNumber = raw_input("Your guess: ")
+        try:
+            if int(guessedNumber) >= low and int(guessedNumber) <= high:
+                a = True
+            else:
+                print("Your guess was outside of your bounds")
+        except:
+            print("That wasn't a number!")
+    return guessedNumber
+
+
+def bounds_tester():
+    """Robust number tester.
+
+    Tests the input bounds to ensure number
+    """
+    a = False
+    while not a:
+        lowerBound = raw_input("Enter a lower bound: ")
+        upperBound = raw_input("Enter an upper bound: ")
+        try:
+            if int(lowerBound) >= 0 and int(upperBound) >= 0 and \
+            int(upperBound) > int(lowerBound):
+                a = True
+            elif int(lowerBound) >= int(upperBound):
+                print("Your upperbound must be greater than your lowerbound")
+            else:
+                print("Your values must be positive")
+        except:
+            print("Please input numbers only!")
+
+    return [lowerBound, upperBound]
 
 
 def advancedGuessingGame():
@@ -28,7 +67,28 @@ def advancedGuessingGame():
     Remember to think modular. Try to keep your functions small and single
     purpose if you can!
     """
-    pass
+    print("\nwelcome to the advance guessing game!")
+    print("First we need to set an upper and lower bound")
+    bounds = bounds_tester()
+    lowerBound = int(bounds[0])
+    upperBound = int(bounds[1])
+    print("OK guess number between {} and {} ?".format(lowerBound, upperBound))
+    lowerBound = int(lowerBound)
+    upperBound = int(upperBound)
+    actualNumber = random.randint(lowerBound, upperBound)
+    guessed = False
+
+    while not guessed:
+        guessedNumber = number_tester(lowerBound, upperBound)
+        guessedNumber = int(guessedNumber)
+        if guessedNumber == actualNumber:
+            print("you got it!! It was {}".format(actualNumber))
+            guessed = True
+        elif guessedNumber < actualNumber:
+            print("too small, try again ")
+        else:
+            print("too big, try again   ")
+    return "You got it!"
 
 
 if __name__ == "__main__":
