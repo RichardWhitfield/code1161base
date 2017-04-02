@@ -2,8 +2,27 @@
 """Week 3, Exercise 4."""
 from __future__ import division
 from __future__ import print_function
-import math
-# import time
+
+
+def bounds_tester(low, high):
+    """Robust number tester.
+
+    Tests the input bounds to ensure number
+    """
+    a = False
+    while not a:
+        try:
+            if int(low) >= 0 and int(high) >= 0 and \
+            int(high) > int(low):
+                a = True
+            elif int(low) >= int(high):
+                print("Your upperbound must be greater than your lowerbound")
+            else:
+                print("Your values must be positive")
+        except:
+            print("Please input numbers only!")
+
+    return [low, high]
 
 
 def binary_search(low, high, actual_number):
@@ -27,7 +46,26 @@ def binary_search(low, high, actual_number):
       (You should remove them from the file, not comment them out, the
       tests aren't that smart yet.)
     """
-    pass
+    print("\nwelcome to the algorithmic guesser, watch it perform magic!")
+    print("First we need to set an upper and lower bound")
+    bounds = bounds_tester(low, high)
+    low = bounds[0]
+    high = bounds[1]
+    guessed = False
+    tries = 0
+
+    while not guessed:
+        tries = tries + 1
+        guess = int((int(high)-int(low))/2+int(low))
+        print(guess)
+        if guess == actual_number:
+            print(actual_number)
+            guessed = True
+        elif guess < actual_number:
+            low = guess
+        else:
+            high = guess
+    return {"guess": guess, "tries": tries}
 
 
 if __name__ == "__main__":
