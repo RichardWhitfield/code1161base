@@ -28,7 +28,12 @@ def success_is_relative():
     # this depends on excecution context. Take a look at your CWD and remember
     # that it changes.
     # print(path, CWD)
-    pass
+    mode = 'r'
+    succ_open = open("week1/pySuccessMessage.json", mode)
+    week1msg = succ_open.read()
+    week1msg = week1msg.strip()
+    succ_open.close()
+    return week1msg
 
 
 def get_some_details():
@@ -44,16 +49,22 @@ def get_some_details():
          might need to go deep. E.g to get the name title you would need to:
          data["results"][0]["name"]["title"]
          Look out for the type of brackets. [] means list and {} means
-         dictionary, you'll need integer indeces for lists, and named keys for
+         dictionary, you'll need integer indices for lists, and named keys for
          dictionaries.
     """
     json_data = open(LOCAL + "/lazyduck.json").read()
 
     data = json.loads(json_data)
-    return {"lastName":       None,
-            "password":       None,
-            "postcodePlusID": None
+    lastNm = (data["results"][0]["name"]["last"])
+    pword = (data["results"][0]["login"]["password"])
+    postid = (int(data["results"][0]["location"]["postcode"]) + int(data["results"][0]["id"]["value"]))
+    return {"lastName":       lastNm,
+            "password":       pword,
+            "postcodePlusID": postid
             }
+
+
+get_some_details()
 
 
 def wordy_pyramid():
@@ -134,8 +145,8 @@ def diarist():
     pass
 
 
-if __name__ == "__main__":
-    print([len(w) for w in wordy_pyramid()])
-    print(get_some_details())
-    print(wunderground())
-    print(diarist())
+# if __name__ == "__main__":
+#        print([len(w) for w in wordy_pyramid()])
+#        print(get_some_details())
+#        print(wunderground())
+#        print(diarist())

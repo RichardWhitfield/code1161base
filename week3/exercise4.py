@@ -13,7 +13,7 @@ def bounds_tester(low, high):
     while not a:
         try:
             if int(low) >= 0 and int(high) >= 0 and \
-            int(high) > int(low):
+               int(high) > int(low):
                 a = True
             elif int(low) >= int(high):
                 print("Your upperbound must be greater than your lowerbound")
