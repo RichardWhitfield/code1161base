@@ -99,7 +99,8 @@ def wordy_pyramid():
     TIP: to add an argument to a URL, use: ?argName=argVal e.g. ?len=
     """
     import requests
-    res = []
+    res_a = []
+    res_b = []
     for a in range(10):
         len = 2 * a + 3
         if len > 20:
@@ -107,14 +108,15 @@ def wordy_pyramid():
         url = "http://www.setgetgo.com/randomword/get.php/?len="
         r = requests.get(url + str(len))
         a = a + 1
-        res.append(str(r))
+        res_a.append(r.text)
     for b in range(8):
         len = 18 - b * 2
         url = "http://www.setgetgo.com/randomword/get.php/?len="
         r = requests.get(url + str(len))
         b = b + 1
-        res.append(str(r))
-    return res
+        res_b.append(r.text)
+    print(res_a + res_b)
+    return res_a + res_b
 
 
 wordy_pyramid()
